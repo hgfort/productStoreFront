@@ -1,1 +1,40 @@
-<p>products works!</p>
+<div class="container">
+  <h2>Products</h2>
+
+  <div *ngIf="products.length === 0" class="no-data">
+    No products found. Create your first product!
+  </div>
+
+  <div *ngIf="products.length > 0" class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Price</th>
+          <th>Manufacturer</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products">
+          <td>{{ product.id }}</td>
+          <td>{{ product.title }}</td>
+          <td>{{ product.price | currency:'USD':'symbol':'1.2-2' }}</td>
+          <td>{{ product.manufacturer }}</td>
+          <td class="actions">
+            <button (click)="deleteProduct(product.id)" class="btn-delete">Delete</button>
+            <button (click)="editProduct(product.id)"
+                    class="btn-edit">
+              Edit
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button (click)="createNewProduct()" class="btn-add">
+    <i class="fas fa-plus"></i> Add New Product
+  </button>
+</div>

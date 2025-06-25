@@ -1,0 +1,69 @@
+<div class="form-container">
+  <h2>{{ isEditMode ? 'Edit Product' : 'Create New Product' }}</h2>
+
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text"
+             id="title"
+             formControlName="title"
+             [class.invalid]="title?.invalid && (title?.dirty || title?.touched)">
+      <div *ngIf="title?.invalid && (title?.dirty || title?.touched)" class="error-message">
+        <div *ngIf="title?.errors?.['required']">Title is required</div>
+        <div *ngIf="title?.errors?.['minlength']">Minimum length is 3 characters</div>
+        <div *ngIf="title?.errors?.['maxlength']">Maximum length is 100 characters</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="price">Price</label>
+      <input type="number"
+             id="price"
+             formControlName="price"
+             step="0.01"
+             [class.invalid]="price?.invalid && (price?.dirty || price?.touched)">
+      <div *ngIf="price?.invalid && (price?.dirty || price?.touched)" class="error-message">
+        <div *ngIf="price?.errors?.['required']">Price is required</div>
+        <div *ngIf="price?.errors?.['min']">Price must be at least 0.01</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea id="description"
+                formControlName="description"
+                rows="4"
+                [class.invalid]="description?.invalid && (description?.dirty || description?.touched)"></textarea>
+      <div *ngIf="description?.invalid && (description?.dirty || description?.touched)" class="error-message">
+        <div *ngIf="description?.errors?.['required']">Description is required</div>
+        <div *ngIf="description?.errors?.['maxlength']">Maximum length is 1000 characters</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="manufacturer">Manufacturer</label>
+      <input type="text"
+             id="manufacturer"
+             formControlName="manufacturer"
+             [class.invalid]="manufacturer?.invalid && (manufacturer?.dirty || manufacturer?.touched)">
+      <div *ngIf="manufacturer?.invalid && (manufacturer?.dirty || manufacturer?.touched)" class="error-message">
+        <div *ngIf="manufacturer?.errors?.['required']">Manufacturer is required</div>
+        <div *ngIf="manufacturer?.errors?.['minlength']">Minimum length is 3 characters</div>
+        <div *ngIf="manufacturer?.errors?.['maxlength']">Maximum length is 100 characters</div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit"
+              class="btn-submit"
+              [disabled]="productForm.invalid">
+        {{ isEditMode ? 'Update Product' : 'Create Product' }}
+      </button>
+      <button type="button"
+              class="btn-cancel"
+              (click)="router.navigate(['/products'])">
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>
