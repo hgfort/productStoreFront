@@ -1,19 +1,54 @@
 <div class="container">
-  <h2>Products</h2>
+  <h2>Продукты</h2>
 
   <div *ngIf="products.length === 0" class="no-data">
     No products found. Create your first product!
   </div>
+  <div class="search-container">
+    <div class="search-form">
+      <input type="number"
+             [(ngModel)]="searchId"
+             placeholder="Введите ID"
+             min="1">
+      <button (click)="searchById()">Поиск</button>
+      <button (click)="clearSearch()" *ngIf="searchId">Clear</button>
+    </div>
 
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  </div>
+
+  <div *ngIf="foundProduct" class="product-details">
+    <h3>Product Details</h3>
+    <table>
+      <tr>
+        <th>ID</th>
+        <td>{{ foundProduct.id }}</td>
+      </tr>
+      <tr>
+        <th>Title</th>
+        <td>{{ foundProduct.title }}</td>
+      </tr>
+      <tr>
+        <th>Price</th>
+        <td>{{ foundProduct.price | currency }}</td>
+      </tr>
+      <tr>
+        <th>Manufacturer</th>
+        <td>{{ foundProduct.manufacturer }}</td>
+      </tr>
+    </table>
+  </div>
   <div *ngIf="products.length > 0" class="table-container">
     <table>
       <thead>
         <tr>
           <th>ID</th>
-          <th>Title</th>
-          <th>Price</th>
-          <th>Manufacturer</th>
-          <th>Actions</th>
+          <th>Название</th>
+          <th>Цена</th>
+          <th>Производитель</th>
+          <th>Действия</th>
         </tr>
       </thead>
       <tbody>
@@ -23,11 +58,8 @@
           <td>{{ product.price | currency:'USD':'symbol':'1.2-2' }}</td>
           <td>{{ product.manufacturer }}</td>
           <td class="actions">
-            <button (click)="deleteProduct(product.id)" class="btn-delete">Delete</button>
-            <button (click)="editProduct(product.id)"
-                    class="btn-edit">
-              Edit
-            </button>
+            <button (click)="deleteProduct(product.id)" class="btn-delete">Удалить</button>
+            <button (click)="editProduct(product.id)" class="btn-edit">Изменить</button>
           </td>
         </tr>
       </tbody>
@@ -35,6 +67,6 @@
   </div>
 
   <button (click)="createNewProduct()" class="btn-add">
-    <i class="fas fa-plus"></i> Add New Product
+    <i class="fas fa-plus"></i> Добавить продукты
   </button>
 </div>

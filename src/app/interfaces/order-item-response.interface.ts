@@ -1,4 +1,4 @@
 export interface OrderItemResponse {
-  productid: number;
+  productId: number;
   quantity: number;
 }

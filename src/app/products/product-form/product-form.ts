@@ -32,6 +32,9 @@ export class ProductFormComponent implements OnInit {
       manufacturer: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]]
     });
   }
+  cancel(): void {
+    this.router.navigate(['/products']);
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {

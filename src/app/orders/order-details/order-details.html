@@ -1,0 +1,28 @@
+<div class="order-details" *ngIf="order">
+  <h2>Order Details #{{ order.id }}</h2>
+
+  <div class="order-info">
+    <p><strong>ID покупателя:</strong> {{ order.customerId }}</p>
+    <p><strong>Дата:</strong> {{ order.dateTime | date:'medium' }}</p>
+    <p><strong>Общая сумма:</strong> {{ order.totalAmount | currency }}</p>
+    <p><strong>Адресс доставки:</strong> {{ order.orderAddress }}</p>
+  </div>
+
+  <h3>Состав заказа</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>ID продукта</th>
+        <th>Колличество</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of order.items">
+        <td>{{ item.productId }}</td>
+        <td>{{ item.quantity }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<a routerLink="/orders" class="back-link">Back to Orders</a>
