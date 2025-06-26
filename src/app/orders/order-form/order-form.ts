@@ -113,4 +113,8 @@ export class OrderFormComponent implements OnInit {
   cancel(): void {
     this.router.navigate(['/orders']);
   }
+  formatCurrency(amount: number): string {
+    const formattedAmount = amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+    return `${formattedAmount} ₽`;
+  }
 }

@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\customers",
+    "\\interfaces",
+    "\\orders",
+    "\\orders\\order-details",
+    "\\orders\\order-form",
+    "\\products",
+    "\\products\\product-form",
+    "\\services"
+  ],
+  "PreviewInSolutionExplorer": false
+}

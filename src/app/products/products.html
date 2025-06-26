@@ -1,72 +1,45 @@
 <div class="container">
   <h2>Продукты</h2>
 
-  <div *ngIf="products.length === 0" class="no-data">
-    No products found. Create your first product!
-  </div>
   <div class="search-container">
     <div class="search-form">
       <input type="number"
              [(ngModel)]="searchId"
              placeholder="Введите ID"
-             min="1">
+             min="1"
+             (keyup.enter)="searchById()">
       <button (click)="searchById()">Поиск</button>
-      <button (click)="clearSearch()" *ngIf="searchId">Clear</button>
-    </div>
-
-    <div *ngIf="errorMessage" class="error-message">
-      {{ errorMessage }}
+      <button (click)="clearSearch()" *ngIf="searchId">Очистить</button>
     </div>
   </div>
 
-  <div *ngIf="foundProduct" class="product-details">
-    <h3>Product Details</h3>
-    <table>
-      <tr>
-        <th>ID</th>
-        <td>{{ foundProduct.id }}</td>
-      </tr>
-      <tr>
-        <th>Title</th>
-        <td>{{ foundProduct.title }}</td>
-      </tr>
-      <tr>
-        <th>Price</th>
-        <td>{{ foundProduct.price | currency }}</td>
-      </tr>
-      <tr>
-        <th>Manufacturer</th>
-        <td>{{ foundProduct.manufacturer }}</td>
-      </tr>
-    </table>
+  <div *ngIf="filteredProducts.length === 0" class="no-data">
+    {{ searchId ? 'Продукты не найдены' : 'No products found' }}
   </div>
-  <div *ngIf="products.length > 0" class="table-container">
+
+  <div *ngIf="filteredProducts.length > 0" class="table-container">
     <table>
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Название</th>
-          <th>Цена</th>
-          <th>Производитель</th>
-          <th>Действия</th>
+          <th *ngFor="let column of displayedColumns">{{ column }}</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let product of products">
+        <tr *ngFor="let product of filteredProducts">
           <td>{{ product.id }}</td>
           <td>{{ product.title }}</td>
-          <td>{{ product.price | currency:'USD':'symbol':'1.2-2' }}</td>
+          <td>{{ formatCurrency(product.price)}}</td>
           <td>{{ product.manufacturer }}</td>
-          <td class="actions">
-            <button (click)="deleteProduct(product.id)" class="btn-delete">Удалить</button>
-            <button (click)="editProduct(product.id)" class="btn-edit">Изменить</button>
+          <td class="actions-cell">
+            <div class="actions">
+              <button (click)="editProduct(product.id)" class="btn-edit">Изменить</button>
+              <button (click)="deleteProduct(product.id)" class="btn-delete">Удалить</button>
+            </div>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <button (click)="createNewProduct()" class="btn-add">
-    <i class="fas fa-plus"></i> Добавить продукты
-  </button>
+  <button (click)="createNewProduct()" class="btn-add">Добавить продукт</button>
 </div>

@@ -1,0 +1,58 @@
+<div class="customer-details" *ngIf="customer">
+  <h2>Детали заказа №{{ customer.id }}</h2>
+
+  <div class="customer-info">
+    <div class="info-row">
+      <span class="info-label">Имя:</span>
+      <span class="info-value">{{ customer.name }}</span>
+    </div>
+    <div class="info-row">
+      <span class="info-label">Телефон:</span>
+      <span class="info-value">{{ customer.phone }}</span>
+    </div>
+    <div class="info-row">
+      <span class="info-label">Email:</span>
+      <span class="info-value">{{ customer.email }}</span>
+    </div>
+    <div class="info-row">
+      <span class="info-label">Адресс:</span>
+      <span class="info-value">{{ customer.address }}</span>
+    </div>
+  </div>
+
+  <h3>Заказы</h3>
+  <div *ngIf="customer.orders && customer.orders.length > 0; else noOrders">
+    <table class="orders-table">
+      <thead>
+        <tr>
+          <th>ID заказа</th>
+          <th>Дата</th>
+          <th>Общая сумма</th>
+          <th>Адресс</th>
+          <th>Действия</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of customer.orders">
+          <td>{{ order.id }}</td>
+          <td>{{ formatDateTime(order.dateTime) }}</td>
+          <td>{{ formatCurrency(order.totalAmount) }}</td>
+          <td>{{ order.orderAddress }}</td>
+          <td class="actions">
+            <button (click)="viewOrder(order.id)" class="btn-view">Просмотр</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #noOrders>
+    <div class="no-data">
+      No orders found for this customer.
+    </div>
+  </ng-template>
+
+  <button (click)="goBack()" class="back-btn">
+    <i class="fas fa-arrow-left"></i> Вернуться к клиентам
+  </button>
+</div>

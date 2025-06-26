@@ -1,9 +1,9 @@
 <div class="form-container">
-  <h2>{{ isEditMode ? 'Edit Product' : 'Create New Product' }}</h2>
+  <h2>{{ isEditMode ? 'Редактировать' : 'Создать' }}</h2>
 
   <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
-      <label for="title">Title</label>
+      <label for="title">Название</label>
       <input type="text"
              id="title"
              formControlName="title"
@@ -16,7 +16,7 @@
     </div>
 
     <div class="form-group">
-      <label for="price">Price</label>
+      <label for="price">Ценв</label>
       <input type="number"
              id="price"
              formControlName="price"
@@ -29,7 +29,7 @@
     </div>
 
     <div class="form-group">
-      <label for="description">Description</label>
+      <label for="description">Описание</label>
       <textarea id="description"
                 formControlName="description"
                 rows="4"
@@ -41,7 +41,7 @@
     </div>
 
     <div class="form-group">
-      <label for="manufacturer">Manufacturer</label>
+      <label for="manufacturer">Производитель</label>
       <input type="text"
              id="manufacturer"
              formControlName="manufacturer"
@@ -57,12 +57,12 @@
       <button type="submit"
               class="btn-submit"
               [disabled]="productForm.invalid">
-        {{ isEditMode ? 'Update Product' : 'Create Product' }}
+        {{ isEditMode ? 'Обновить' : 'Создать' }}
       </button>
       <button type="button"
               class="btn-cancel"
               (click)="cancel()">
-        Cancel
+        Отменить
       </button>
     </div>
   </form>

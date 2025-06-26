@@ -4,3 +4,7 @@ export interface CustomerRequest {
   address: string;
   email: string;
 }
+export interface CustomerSearchRequest {
+  name: string;
+  exactMatch: boolean;
+}

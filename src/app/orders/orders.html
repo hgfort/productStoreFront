@@ -1,11 +1,23 @@
 <div class="container">
   <h2>Заказы</h2>
 
-  <div *ngIf="orders.length === 0" class="no-data">
-    Заказов нет
+  <div class="search-container">
+    <div class="search-form">
+      <input type="number"
+             [(ngModel)]="searchId"
+             placeholder="Введите ID"
+             min="1"
+             (keyup.enter)="searchById()">
+      <button (click)="searchById()">Поиск</button>
+      <button (click)="clearSearch()" *ngIf="searchId">Очистить</button>
+    </div>
   </div>
 
-  <div *ngIf="orders.length > 0" class="table-container">
+  <div *ngIf="filteredOrders.length === 0" class="no-data">
+    {{ searchId ? 'Заказы не найдены' : 'No orders found' }}
+  </div>
+
+  <div *ngIf="filteredOrders.length > 0" class="table-container">
     <table>
       <thead>
         <tr>
@@ -13,21 +25,23 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let order of orders">
+        <tr *ngFor="let order of filteredOrders">
           <td>{{ order.id }}</td>
           <td>{{ order.customerId }}</td>
-          <td>{{ order.dateTime | date:'medium' }}</td>
-          <td>{{ order.totalAmount | currency }}</td>
+          <td>{{ formatDateTime(order.dateTime) }}</td>
+          <td>{{ formatCurrency(order.totalAmount) }}</td>
           <td>{{ order.orderAddress }}</td>
-          <td class="actions">
-            <button (click)="viewOrderDetails(order.id)" class="btn-view">Детали</button>
-            <button (click)="editOrder(order.id)" class="btn-edit">Редактировать</button>
-            <button (click)="deleteOrder(order.id)" class="btn-delete">Удалить</button>
+          <td class="actions-cell">
+            <div class="actions">
+              <button (click)="viewOrderDetails(order.id)" class="btn-view">Состав</button>
+              <button (click)="editOrder(order.id)" class="btn-edit">Редактировать</button>
+              <button (click)="deleteOrder(order.id)" class="btn-delete">Удалить</button>
+            </div>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <button (click)="createNewOrder()" class="btn-add">Создать новый заказ</button>
+  <button (click)="createNewOrder()" class="btn-add">Создать заказ</button>
 </div>

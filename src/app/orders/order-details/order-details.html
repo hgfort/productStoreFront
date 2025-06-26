@@ -1,10 +1,10 @@
 <div class="order-details" *ngIf="order">
-  <h2>Order Details #{{ order.id }}</h2>
+  <h2>Детали заказа №{{ order.id }}</h2>
 
   <div class="order-info">
     <p><strong>ID покупателя:</strong> {{ order.customerId }}</p>
-    <p><strong>Дата:</strong> {{ order.dateTime | date:'medium' }}</p>
-    <p><strong>Общая сумма:</strong> {{ order.totalAmount | currency }}</p>
+    <p><strong>Дата:</strong> {{ formatDateTime(order.dateTime) }}</p>
+    <p><strong>Общая сумма:</strong>{{ formatCurrency(order.totalAmount) }}</p>
     <p><strong>Адресс доставки:</strong> {{ order.orderAddress }}</p>
   </div>
 
@@ -23,6 +23,8 @@
       </tr>
     </tbody>
   </table>
+  <button (click)="router.navigate(['/orders'])" class="back-btn">
+    <i class="fas fa-arrow-left"></i> Вернуться к заказам
+  </button>
 </div>
 
-<a routerLink="/orders" class="back-link">Back to Orders</a>

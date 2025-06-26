@@ -1,0 +1,50 @@
+<div class="form-container">
+  <h2>{{ isEditMode ? 'Редактировать' : 'Создать' }}</h2>
+
+  <div *ngIf="errorMessages.length > 0" class="error-messages">
+    <div *ngFor="let error of errorMessages" class="error-message">
+      {{ error }}
+    </div>
+  </div>
+
+  <form (ngSubmit)="onSubmit()" #customerForm="ngForm">
+    <div class="form-group">
+      <label for="name">Имя</label>
+      <input type="text" id="name" name="name"
+             [(ngModel)]="customer.name" required>
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Телефон</label>
+      <input type="tel" id="phone" name="phone"
+             [(ngModel)]="customer.phone" required
+             [class.invalid]="fieldErrors['phone']">
+      <div *ngIf="fieldErrors['phone']" class="field-error">
+        {{ fieldErrors['phone'] }}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email"
+             [(ngModel)]="customer.email" required
+             [class.invalid]="fieldErrors['email']">
+      <div *ngIf="fieldErrors['email']" class="field-error">
+        {{ fieldErrors['email'] }}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="address">Адресс</label>
+      <textarea id="address" name="address"
+                [(ngModel)]="customer.address"></textarea>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" (click)="onCancel()" class="btn-cancel">Отменить</button>
+      <button type="submit" [disabled]="customerForm.invalid" class="btn-submit">
+        {{ isEditMode ? 'Обновить' : 'Создать' }}
+      </button>
+    </div>
+  </form>
+</div>

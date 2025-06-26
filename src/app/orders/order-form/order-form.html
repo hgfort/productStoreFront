@@ -1,9 +1,9 @@
 <div class="order-form-container">
-  <h2>{{ isEditMode ? 'Edit Order' : 'Create New Order' }}</h2>
+  <h2>{{ isEditMode ? 'Редактировать заказ' : 'Создать заказ' }}</h2>
 
   <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
-      <label for="customerId">Customer ID</label>
+      <label for="customerId">ID покупателя</label>
       <input type="number"
              id="customerId"
              formControlName="customerId"
@@ -22,7 +22,7 @@
     </div>
 
     <div class="form-group">
-      <label for="orderAddress">Delivery Address</label>
+      <label for="orderAddress">Адресс доставки</label>
       <input type="text"
              id="orderAddress"
              formControlName="orderAddress"
@@ -41,33 +41,33 @@
     </div>
 
     <div class="items-section">
-      <h3>Order Items</h3>
+      <h3>Добавьте продукты</h3>
 
       <div formArrayName="items">
         <div *ngFor="let item of items.controls; let i = index" [formGroupName]="i" class="item-row">
           <div class="form-group">
-            <label>Product</label>
+            <label>Продукт</label>
             <select formControlName="productId" class="product-select">
-              <option value="">Select Product</option>
+              <option value="">Выберите продукт</option>
               <option *ngFor="let product of products" [value]="product.id">
-                {{ product.title }} ({{ product.price | currency }})
+                {{ product.title }} ({{ formatCurrency(product.price)}})
               </option>
             </select>
           </div>
 
           <div class="form-group quantity-group">
-            <label>Quantity</label>
+            <label>Колличество</label>
             <input type="number" formControlName="quantity" min="1">
           </div>
 
           <button type="button" (click)="removeItem(i)" class="btn-remove">
-            Remove
+            Удалить
           </button>
         </div>
       </div>
 
       <button type="button" (click)="addItem()" class="btn-add-item">
-        Add Item
+        Добавить
       </button>
     </div>
 
@@ -75,12 +75,12 @@
       <button type="submit"
               class="btn-submit"
               [disabled]="orderForm.invalid || items.length === 0">
-        {{ isEditMode ? 'Update Order' : 'Create Order' }}
+        {{ isEditMode ? 'Обновить' : 'Создать' }}
       </button>
       <button type="button"
               class="btn-cancel"
               (click)="cancel()">
-        Cancel
+        Отменить
       </button>
     </div>
   </form>
